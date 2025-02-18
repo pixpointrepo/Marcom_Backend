@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 
-const {uploadArticle, getAllArticles, getArticleById, updateArticle, deleteArticle, getAllCategories} = require("../controllers/articleController");
+const {uploadArticle, getAllArticles, getArticleById, updateArticle, deleteArticle, getAllCategories, getAllTags} = require("../controllers/articleController");
 const { verifyToken, verifyAdmin } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
@@ -26,11 +26,16 @@ const upload = multer({ storage });
 router.post("/", verifyAdmin, upload.single("thumbnail"), uploadArticle);
 
 /**
+ * @route   GET /api/articles/tags
+ * @desc    Get all tags
+ */
+router.get("/tags", getAllTags);
+
+/**
  * @route   GET /api/articles/categories
  * @desc    Get all categories
  */
 router.get("/categories", getAllCategories);
-
 
 /**
  * @route   GET /api/articles

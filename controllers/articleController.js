@@ -197,6 +197,16 @@ const getAllCategories =  async (req, res) => {
    }
 };
 
+const getAllTags = async (req, res) => {
+  try {
+      const tags = await Article.distinct("tags");
+      res.status(200).json(tags);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   uploadArticle,
   getAllArticles,
@@ -204,4 +214,5 @@ module.exports = {
   updateArticle,
   deleteArticle,
   getAllCategories,
+  getAllTags
 };
