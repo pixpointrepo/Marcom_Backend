@@ -49,7 +49,7 @@ const uploadArticle = async (req, res) => {
 const getAllArticles = async (req, res) => {
   try {
     
-    let { page = 1, limit = 10, category, tags } = req.query;
+    let { page = 1, limit = 10, category, tags, date } = req.query;
 
     page = parseInt(page);
     limit = parseInt(limit);
@@ -66,6 +66,20 @@ const getAllArticles = async (req, res) => {
         const tagsArray = tags.split(",").map(tag => tag.trim());
         filter.tags = { $in: tagsArray };
     }
+    console.log("Received date string:", date);  // Check the format you're receiving
+
+
+     // 🔹 Filter by Date (Exact Match or Range)
+     if (date) {
+      const startDate = new Date(date + "T00:00:00.000Z"); // Start of the day in UTC
+      const endDate = new Date(date + "T23:59:59.999Z");
+      console.log("Start date:", startDate);
+      console.log("End date:", endDate);
+
+      filter.date = { $gte: startDate, $lte: endDate };
+  }
+
+    
 
     // 🔹 Get total count for pagination
     const totalArticles = await Article.countDocuments(filter);
