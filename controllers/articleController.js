@@ -16,6 +16,7 @@ const uploadArticle = async (req, res) => {
       category,
       tags,
       mainArticleUrl,
+      isFeatured
     } = req.body;
 
     if (!req.file) {
@@ -34,6 +35,7 @@ const uploadArticle = async (req, res) => {
       categoryUrl: generateUrl(category), 
       tags: tags.split(","), // Convert tags to array
       mainArticleUrl,
+      isFeatured
     });
 
     await newArticle.save();
@@ -49,7 +51,7 @@ const uploadArticle = async (req, res) => {
 const getAllArticles = async (req, res) => {
   try {
     
-    let { page = 1, limit = 10, category, tags, date, search } = req.query;
+    let { page = 1, limit = 10, isFeatured, category, tags, date, search } = req.query;
 
     page = parseInt(page);
     limit = parseInt(limit);
@@ -83,6 +85,13 @@ const getAllArticles = async (req, res) => {
           { summary: { $regex: search, $options: "i" } },
           { description: { $regex: search, $options: "i" } }
       ];
+    }
+
+    // 🔹 Filter by isFeatured (Only Return Featured Articles If True)
+    if (isFeatured === "true") {
+      filter.isFeatured = true;
+    }else if(isFeatured === "false"){
+      filter.isFeatured = false;
     }
 
     // 🔹 Get total count for pagination
@@ -131,6 +140,7 @@ const updateArticle = async (req, res) => {
       category,
       tags,
       mainArticleUrl,
+      isFeatured
     } = req.body;
 
     let article = await Article.findById(req.params.id);
@@ -160,6 +170,7 @@ const updateArticle = async (req, res) => {
     article.categoryUrl =  generateUrl(category) || article.categoryUrl;
     article.tags = tags ? tags.split(",") : article.tags;
     article.mainArticleUrl = mainArticleUrl || article.mainArticleUrl;
+    article.isFeatured = isFeatured || article.isFeatured;
 
     await article.save();
     res.status(200).json({ message: "Article updated successfully", article });

@@ -10,7 +10,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["AI", "Healthcare", "Technology", "Future", "Innovation"],
-      "mainArticleUrl": "https://example.com/articles/ai-healthcare"
+      "mainArticleUrl": "https://example.com/articles/ai-healthcare",
+      "isFeatured": true
     },
     {
       "title": "Nepal's Economic Growth Post-Pandemic",
@@ -23,7 +24,8 @@
       "category": "News",
       "categoryUrl": "news",
       "tags": ["Nepal", "Economy", "Recovery", "Pandemic", "National"],
-      "mainArticleUrl": "https://example.com/articles/nepal-economic-growth"
+      "mainArticleUrl": "https://example.com/articles/nepal-economic-growth",
+      "isFeatured": true
     },
     {
       "title": "AI in the Automotive Industry: The Future of Transportation",
@@ -36,7 +38,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["AI", "Automotive", "Transportation", "Innovation", "Future"],
-      "mainArticleUrl": "https://example.com/articles/ai-automotive"
+      "mainArticleUrl": "https://example.com/articles/ai-automotive",
+      "isFeatured": true
     },
     {
       "title": "China's Dominance in Global Tech Industry",
@@ -49,7 +52,8 @@
       "category": "International",
       "categoryUrl": "international",
       "tags": ["China", "Tech", "Global Market", "Innovation", "Economy"],
-      "mainArticleUrl": "https://example.com/articles/china-global-tech"
+      "mainArticleUrl": "https://example.com/articles/china-global-tech",
+      "isFeatured": true
     },
     {
       "title": "Nepal's Renewable Energy Potential",
@@ -62,7 +66,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["Nepal", "Energy", "Renewable", "Hydropower", "Solar"],
-      "mainArticleUrl": "https://example.com/articles/nepal-renewable-energy"
+      "mainArticleUrl": "https://example.com/articles/nepal-renewable-energy",
+      "isFeatured": false
     },
     {
       "title": "The Future of Work: AI and Automation",
@@ -75,7 +80,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["AI", "Automation", "Workforce", "Future", "Innovation"],
-      "mainArticleUrl": "https://example.com/articles/future-of-work"
+      "mainArticleUrl": "https://example.com/articles/future-of-work",
+      "isFeatured": false
     },
     {
       "title": "The Rise of Electric Vehicles in Nepal",
@@ -88,7 +94,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["Nepal", "Electric Vehicles", "Sustainability", "Green Energy", "Transport"],
-      "mainArticleUrl": "https://example.com/articles/electric-vehicles-nepal"
+      "mainArticleUrl": "https://example.com/articles/electric-vehicles-nepal",
+      "isFeatured": false
     },
     {
       "title": "US-China Trade War Impact on Global Economy",
@@ -101,7 +108,8 @@
       "category": "International",
       "categoryUrl": "international",
       "tags": ["US", "China", "Trade War", "Global Economy", "Politics"],
-      "mainArticleUrl": "https://example.com/articles/us-china-trade-war"
+      "mainArticleUrl": "https://example.com/articles/us-china-trade-war",
+      "isFeatured": false
     },
     {
       "title": "The Future of Space Exploration: Mars Missions",
@@ -114,7 +122,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["Space", "Mars", "Exploration", "Future", "Innovation"],
-      "mainArticleUrl": "https://example.com/articles/mars-missions"
+      "mainArticleUrl": "https://example.com/articles/mars-missions",
+      "isFeatured": false
     },
     {
       "title": "Nepal's Digital Transformation",
@@ -127,7 +136,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["Nepal", "Digital", "Transformation", "Innovation", "Tech"],
-      "mainArticleUrl": "https://example.com/articles/nepal-digital-transformation"
+      "mainArticleUrl": "https://example.com/articles/nepal-digital-transformation",
+      "isFeatured": false
     },
     {
       "title": "5G Technology: Revolutionizing Connectivity",
@@ -140,7 +150,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["5G", "Connectivity", "Telecommunications", "Innovation", "Tech"],
-      "mainArticleUrl": "https://example.com/articles/5g-technology"
+      "mainArticleUrl": "https://example.com/articles/5g-technology",
+      "isFeatured": false
     },
     {
       "title": "India's Economic Growth in 2025",
@@ -153,7 +164,8 @@
       "category": "International",
       "categoryUrl": "international",
       "tags": ["India", "Economy", "Growth", "Development", "Finance"],
-      "mainArticleUrl": "https://example.com/articles/india-economic-growth"
+      "mainArticleUrl": "https://example.com/articles/india-economic-growth",
+      "isFeatured": false
     },
     {
       "title": "Nepal's Tourism Industry in 2025",
@@ -166,7 +178,8 @@
       "category": "National",
       "categoryUrl": "national",
       "tags": ["Nepal", "Tourism", "Industry", "Growth", "Economy"],
-      "mainArticleUrl": "https://example.com/articles/nepal-tourism-industry"
+      "mainArticleUrl": "https://example.com/articles/nepal-tourism-industry",
+      "isFeatured": false
     },
     {
       "title": "Global Cybersecurity Threats in 2025",
@@ -179,7 +192,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["Cybersecurity", "Threats", "Technology", "Innovation", "Security"],
-      "mainArticleUrl": "https://example.com/articles/global-cybersecurity"
+      "mainArticleUrl": "https://example.com/articles/global-cybersecurity",
+      "isFeatured": false
     },
     {
       "title": "AI in Education: Revolutionizing Learning",
@@ -192,7 +206,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["AI", "Education", "Learning", "Technology", "Future"],
-      "mainArticleUrl": "https://example.com/articles/ai-education"
+      "mainArticleUrl": "https://example.com/articles/ai-education",
+      "isFeatured": false
     },
     {
       "title": "The Future of Electric Aviation",
@@ -205,7 +220,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["Electric Aviation", "Planes", "Technology", "Innovation", "Future"],
-      "mainArticleUrl": "https://example.com/articles/electric-aviation"
+      "mainArticleUrl": "https://example.com/articles/electric-aviation",
+      "isFeatured": false
     },
     {
       "title": "Global Water Crisis: A Growing Threat",
@@ -218,7 +234,8 @@
       "category": "International",
       "categoryUrl": "international",
       "tags": ["Water Crisis", "Global Issues", "Environment", "Sustainability"],
-      "mainArticleUrl": "https://example.com/articles/global-water-crisis"
+      "mainArticleUrl": "https://example.com/articles/global-water-crisis",
+      "isFeatured": false
     },
     {
       "title": "Nepal's National Politics in 2025",
@@ -231,7 +248,8 @@
       "category": "National",
       "categoryUrl": "national",
       "tags": ["Nepal", "Politics", "Government", "National"],
-      "mainArticleUrl": "https://example.com/articles/nepal-national-politics"
+      "mainArticleUrl": "https://example.com/articles/nepal-national-politics",
+      "isFeatured": false
     },
     {
       "title": "The Growth of E-Commerce in South Asia",
@@ -244,7 +262,8 @@
       "category": "International",
       "categoryUrl": "international",
       "tags": ["E-Commerce", "South Asia", "Economy", "Tech", "Growth"],
-      "mainArticleUrl": "https://example.com/articles/e-commerce-south-asia"
+      "mainArticleUrl": "https://example.com/articles/e-commerce-south-asia",
+      "isFeatured": false
     },
     {
       "title": "The Impact of Blockchain in Finance",
@@ -257,7 +276,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["Blockchain", "Finance", "Cryptocurrency", "Innovation", "Tech"],
-      "mainArticleUrl": "https://example.com/articles/blockchain-finance"
+      "mainArticleUrl": "https://example.com/articles/blockchain-finance",
+      "isFeatured": false
     },
     {
       "title": "Nepal's National Budget 2025",
@@ -270,7 +290,8 @@
       "category": "National",
       "categoryUrl": "national",
       "tags": ["Nepal", "Budget", "Economy", "Government", "Finance"],
-      "mainArticleUrl": "https://example.com/articles/nepal-national-budget"
+      "mainArticleUrl": "https://example.com/articles/nepal-national-budget",
+      "isFeatured": false
     },
     {
       "title": "The Future of Smart Cities",
@@ -283,7 +304,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["Smart Cities", "Urban Planning", "Technology", "Future", "Innovation"],
-      "mainArticleUrl": "https://example.com/articles/smart-cities-future"
+      "mainArticleUrl": "https://example.com/articles/smart-cities-future",
+      "isFeatured": false
     },
     {
       "title": "AI and Ethics: Challenges Ahead",
@@ -296,7 +318,8 @@
       "category": "Technology",
       "categoryUrl": "technology",
       "tags": ["AI", "Ethics", "Technology", "Innovation", "Challenges"],
-      "mainArticleUrl": "https://example.com/articles/ai-ethics"
+      "mainArticleUrl": "https://example.com/articles/ai-ethics",
+      "isFeatured": false
     },
     {
       "title": "Japan's Technological Innovations in 2025",
@@ -309,7 +332,8 @@
       "category": "International",
       "categoryUrl": "international",
       "tags": ["Japan", "Technology", "Innovation", "AI", "Robotics"],
-      "mainArticleUrl": "https://example.com/articles/japan-innovation-2025"
+      "mainArticleUrl": "https://example.com/articles/japan-innovation-2025",
+      "isFeatured": false
     },
     {
       "title": "Nepal's Agriculture Industry Transformation",
@@ -322,7 +346,8 @@
       "category": "National",
       "categoryUrl": "national",
       "tags": ["Nepal", "Agriculture", "Technology", "Innovation", "Sustainability"],
-      "mainArticleUrl": "https://example.com/articles/nepal-agriculture"
+      "mainArticleUrl": "https://example.com/articles/nepal-agriculture",
+      "isFeatured": false
     },
     {
       "title": "Global Energy Crisis: A Growing Concern",
@@ -335,7 +360,8 @@
       "category": "International",
       "categoryUrl": "international",
       "tags": ["Energy", "Crisis", "Global", "Sustainability", "Environment"],
-      "mainArticleUrl": "https://example.com/articles/global-energy-crisis"
+      "mainArticleUrl": "https://example.com/articles/global-energy-crisis",
+      "isFeatured": false
     },
     {
         "title": "The Role of AI in Financial Services",
@@ -348,7 +374,8 @@
         "category": "Technology",
         "categoryUrl": "technology",
         "tags": ["AI", "Finance", "Financial Services", "Technology", "Innovation"],
-        "mainArticleUrl": "https://example.com/articles/ai-financial-services"
+        "mainArticleUrl": "https://example.com/articles/ai-financial-services",
+        "isFeatured": false
       },
       {
         "title": "Global Health Innovations Post-2025",
@@ -361,7 +388,8 @@
         "category": "International",
         "categoryUrl": "international",
         "tags": ["Healthcare", "Innovation", "Global Health", "Technology", "Medical Research"],
-        "mainArticleUrl": "https://example.com/articles/global-health-innovations"
+        "mainArticleUrl": "https://example.com/articles/global-health-innovations",
+        "isFeatured": false
       },
       {
         "title": "The Future of Smart Homes",
@@ -374,7 +402,8 @@
         "category": "Technology",
         "categoryUrl": "technology",
         "tags": ["Smart Homes", "IoT", "Technology", "Innovation", "Automation"],
-        "mainArticleUrl": "https://example.com/articles/smart-homes-future"
+        "mainArticleUrl": "https://example.com/articles/smart-homes-future",
+        "isFeatured": false
       },
       {
         "title": "The Digital Currency Revolution",
@@ -387,7 +416,8 @@
         "category": "Technology",
         "categoryUrl": "technology",
         "tags": ["Digital Currency", "Cryptocurrency", "Finance", "Innovation", "Blockchain"],
-        "mainArticleUrl": "https://example.com/articles/digital-currency-revolution"
+        "mainArticleUrl": "https://example.com/articles/digital-currency-revolution",
+        "isFeatured": false
       },
       {
         "title": "Nepal's Youth Unemployment Crisis",
@@ -400,7 +430,8 @@
         "category": "National",
         "categoryUrl": "national",
         "tags": ["Nepal", "Youth", "Unemployment", "Economy", "National Issue"],
-        "mainArticleUrl": "https://example.com/articles/nepal-youth-unemployment"
+        "mainArticleUrl": "https://example.com/articles/nepal-youth-unemployment",
+        "isFeatured": false
       },
       {
         "title": "Artificial Intelligence in Disaster Management",
@@ -413,7 +444,8 @@
         "category": "Technology",
         "categoryUrl": "technology",
         "tags": ["AI", "Disaster Management", "Technology", "Innovation", "Environment"],
-        "mainArticleUrl": "https://example.com/articles/ai-disaster-management"
+        "mainArticleUrl": "https://example.com/articles/ai-disaster-management",
+        "isFeatured": false
       },
       {
         "title": "The Changing Face of Retail in Nepal",
@@ -426,7 +458,8 @@
         "category": "National",
         "categoryUrl": "national",
         "tags": ["Nepal", "Retail", "E-Commerce", "Digital", "Technology"],
-        "mainArticleUrl": "https://example.com/articles/nepal-retail-transformation"
+        "mainArticleUrl": "https://example.com/articles/nepal-retail-transformation",
+        "isFeatured": false
       },
       {
         "title": "The Impact of Climate Change on Nepal's Agriculture",
@@ -439,7 +472,8 @@
         "category": "National",
         "categoryUrl": "national",
         "tags": ["Nepal", "Climate Change", "Agriculture", "Food Security", "Environment"],
-        "mainArticleUrl": "https://example.com/articles/climate-change-nepal-agriculture"
+        "mainArticleUrl": "https://example.com/articles/climate-change-nepal-agriculture",
+        "isFeatured": false
       },
       {
         "title": "The Future of 3D Printing in Manufacturing",
@@ -452,7 +486,8 @@
         "category": "Technology",
         "categoryUrl": "technology",
         "tags": ["3D Printing", "Manufacturing", "Technology", "Innovation", "Future"],
-        "mainArticleUrl": "https://example.com/articles/3d-printing-manufacturing"
+        "mainArticleUrl": "https://example.com/articles/3d-printing-manufacturing",
+        "isFeatured": false
       },
       {
         "title": "The Challenges of Electric Vehicle Infrastructure in Nepal",
@@ -465,7 +500,8 @@
         "category": "National",
         "categoryUrl": "national",
         "tags": ["Nepal", "Electric Vehicles", "Infrastructure", "Sustainability", "Green Energy"],
-        "mainArticleUrl": "https://example.com/articles/ev-infrastructure-nepal"
+        "mainArticleUrl": "https://example.com/articles/ev-infrastructure-nepal",
+        "isFeatured": false
       },
       {
         "title": "The Power of Digital Marketing in 2025",
@@ -478,7 +514,8 @@
         "category": "Marketing Initiative",
         "categoryUrl": "marketing-initiative",
         "tags": ["Digital Marketing", "Marketing", "AI", "Innovation", "Social Media"],
-        "mainArticleUrl": "https://example.com/articles/digital-marketing-2025"
+        "mainArticleUrl": "https://example.com/articles/digital-marketing-2025",
+        "isFeatured": false
       },
       {
         "title": "Nepal's Emerging Digital Marketing Trends",
@@ -491,7 +528,8 @@
         "category": "Marketing Initiative",
         "categoryUrl": "marketing-initiative",
         "tags": ["Nepal", "Digital Marketing", "Social Media", "Branding", "Growth"],
-        "mainArticleUrl": "https://example.com/articles/nepal-digital-marketing-trends"
+        "mainArticleUrl": "https://example.com/articles/nepal-digital-marketing-trends",
+        "isFeatured": false
       },
       {
         "title": "Social Media Advertising: Best Practices for 2025",
@@ -504,7 +542,8 @@
         "category": "Marketing Initiative",
         "categoryUrl": "marketing-initiative",
         "tags": ["Social Media", "Advertising", "Marketing", "Strategy", "ROI"],
-        "mainArticleUrl": "https://example.com/articles/social-media-advertising-best-practices"
+        "mainArticleUrl": "https://example.com/articles/social-media-advertising-best-practices",
+        "isFeatured": false
       },
       {
         "title": "Football's Global Influence in 2025",
@@ -517,7 +556,8 @@
         "category": "Sports",
         "categoryUrl": "sports",
         "tags": ["Football", "Sports", "Global Influence", "Economy", "Culture"],
-        "mainArticleUrl": "https://example.com/articles/football-global-influence-2025"
+        "mainArticleUrl": "https://example.com/articles/football-global-influence-2025",
+        "isFeatured": false
       },
       {
         "title": "The Rise of Esports: The Future of Competitive Gaming",
@@ -530,7 +570,8 @@
         "category": "Sports",
         "categoryUrl": "sports",
         "tags": ["Esports", "Gaming", "Sports", "Entertainment", "Competitive"],
-        "mainArticleUrl": "https://example.com/articles/rise-of-esports"
+        "mainArticleUrl": "https://example.com/articles/rise-of-esports",
+        "isFeatured": false
       },
       {
         "title": "Olympics 2025: New Sports and Innovations",
@@ -543,7 +584,8 @@
         "category": "Sports",
         "categoryUrl": "sports",
         "tags": ["Olympics", "Sports", "Innovation", "Technology", "2025"],
-        "mainArticleUrl": "https://example.com/articles/olympics-2025-new-sports"
+        "mainArticleUrl": "https://example.com/articles/olympics-2025-new-sports",
+        "isFeatured": false
       },
       {
         "title": "The Future of Business Startups in Nepal",
@@ -556,7 +598,8 @@
         "category": "Business",
         "categoryUrl": "business",
         "tags": ["Nepal", "Business", "Startups", "Entrepreneurship", "Growth"],
-        "mainArticleUrl": "https://example.com/articles/future-of-business-startups-nepal"
+        "mainArticleUrl": "https://example.com/articles/future-of-business-startups-nepal",
+        "isFeatured": false
       },
       {
         "title": "Nepal's Growing Tech Startup Scene",
@@ -569,7 +612,8 @@
         "category": "Business",
         "categoryUrl": "business",
         "tags": ["Nepal", "Tech Startups", "Innovation", "Business", "Growth"],
-        "mainArticleUrl": "https://example.com/articles/nepal-tech-startups"
+        "mainArticleUrl": "https://example.com/articles/nepal-tech-startups",
+        "isFeatured": false
       },
       {
         "title": "Corporate Social Responsibility: A Business Necessity",
@@ -582,7 +626,8 @@
         "category": "Business",
         "categoryUrl": "business",
         "tags": ["Business", "CSR", "Sustainability", "Corporate", "Responsibility"],
-        "mainArticleUrl": "https://example.com/articles/corporate-social-responsibility"
+        "mainArticleUrl": "https://example.com/articles/corporate-social-responsibility",
+        "isFeatured": false
       },
       {
         "title": "The Future of Remote Work: Post-2025 Trends",
@@ -595,7 +640,8 @@
         "category": "Business",
         "categoryUrl": "business",
         "tags": ["Business", "Remote Work", "Workforce", "Trends", "Future"],
-        "mainArticleUrl": "https://example.com/articles/future-of-remote-work"
+        "mainArticleUrl": "https://example.com/articles/future-of-remote-work",
+        "isFeatured": false
       }
 ]
   

@@ -12,6 +12,7 @@ const articleSchema = new mongoose.Schema({
     categoryUrl: { type: String, required: true },
     tags: { type: [String], required: true },
     mainArticleUrl: { type: String, required: true },
+    isFeatured: { type: Boolean, required: true, default: false },
 });
 
 module.exports = mongoose.model("Article", articleSchema);
