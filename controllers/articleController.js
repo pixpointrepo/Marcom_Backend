@@ -68,7 +68,7 @@ const getAllArticles = async (req, res) => {
         const tagsArray = tags.split(",").map(tag => tag.trim());
         filter.tags = { $in: tagsArray };
     }
-    console.log("Received date string:", date);  // Check the format you're receiving
+    // console.log("Received date string:", date);  
 
 
      // 🔹 Filter by Date (Exact Match or Range)
