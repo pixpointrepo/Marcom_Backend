@@ -39,10 +39,17 @@ const uploadArticle = async (req, res) => {
       isFeatured
     });
 
-    await newArticle.save();
+    const savedArticle = await newArticle.save();
+
+    // Use the last 7 characters of MongoDB's ObjectId
+    const shortId = savedArticle._id.toString().slice(-7);
+    savedArticle.url = generateUrl(title) + "-" + shortId;
+
+    await savedArticle.save();
+
     res
       .status(201)
-      .json({ message: "Article added successfully", article: newArticle });
+      .json({ message: "Article added successfully", article: savedArticle });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Server Error : ${error.message}` });
@@ -134,6 +141,10 @@ const getHomepageArticles = async (req, res) => {
       // 🔹 Fetch Articles for Each Category (excluding featured articles)
       const categoryArticles = {};
 
+      // 🔹 Add Featured Articles to the Response
+      categoryArticles["featuredArticles"] = featuredArticles;
+
+      // 🔹 Add other articles of featured category to the Response
       for (const category of categories) {
           const articles = await Article.find({ 
               categoryUrl: category.url, 
@@ -147,8 +158,7 @@ const getHomepageArticles = async (req, res) => {
           }
       }
 
-      // 🔹 Add Featured Articles to the Response
-      categoryArticles["featuredArticles"] = featuredArticles;
+  
 
       res.status(200).json(categoryArticles);
 
@@ -158,9 +168,23 @@ const getHomepageArticles = async (req, res) => {
   }
 };
 
+
 const getArticleById = async (req, res) => {
   try {
     const article = await Article.findById(req.params.id);
+    if (!article) {
+      return res.status(404).json({ message: "Article not found" });
+    }
+    res.status(200).json(article);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const getArticleByUrl = async (req, res) => {
+  try {
+    const article = await Article.findOne({ url: req.params.url });
     if (!article) {
       return res.status(404).json({ message: "Article not found" });
     }
@@ -203,7 +227,17 @@ const updateArticle = async (req, res) => {
     }
 
     // Update article fields
-    article.title = title || article.title;
+
+    // update title and url first
+    if (title) {
+      article.title = title;
+      const shortId = article._id.toString().slice(-7); 
+      article.url = generateUrl(title) + "-" + shortId;
+    } else {
+      article.title = article.title ;
+      article.url = article.url || generateUrl(article.title) + "-" + article._id.toString().slice(-7);
+    }
+
     article.summary = summary || article.summary;
     article.description = description || article.description;
     article.date = date || article.date;
@@ -284,6 +318,7 @@ module.exports = {
   getAllArticles,
   getHomepageArticles,
   getArticleById,
+  getArticleByUrl,
   updateArticle,
   deleteArticle,
   getAllCategories,

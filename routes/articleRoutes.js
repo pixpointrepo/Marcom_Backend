@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 
-const {uploadArticle, getAllArticles, getHomepageArticles, getArticleById, updateArticle, deleteArticle, getAllCategories, getAllTags} = require("../controllers/articleController");
+const {uploadArticle, getAllArticles, getHomepageArticles, getArticleById, getArticleByUrl, updateArticle, deleteArticle, getAllCategories, getAllTags} = require("../controllers/articleController");
 const { verifyToken, verifyAdmin } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
@@ -48,6 +48,12 @@ router.get("/homepage", getHomepageArticles);
  * @desc    Get all articles
  */
 router.get("/", getAllArticles);
+
+/**
+ * @route   GET /api/articles/url/:id
+ * @desc    Get a single article by its url
+ */
+router.get("/url/:url", getArticleByUrl);
 
 /**
  * @route   GET /api/articles/:id
