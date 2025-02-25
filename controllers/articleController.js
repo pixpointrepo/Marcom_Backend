@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 
 const Article = require("../models/Article");
+const Category = require("../models/Category");
 const generateUrl = require("../utils/urlGenerator");
 
 const uploadArticle = async (req, res) => {
@@ -66,10 +67,8 @@ const getAllArticles = async (req, res) => {
     // 🔹 Filter by Tags (comma-separated)
     if (tags) {
         const tagsArray = tags.split(",").map(tag => tag.trim());
-        filter.tags = { $in: tagsArray };
+        filter.tags = { $all: tagsArray };
     }
-    // console.log("Received date string:", date);  
-
 
      // 🔹 Filter by Date (Exact Match or Range)
      if (date) {
@@ -112,6 +111,50 @@ const getAllArticles = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
+  }
+};
+
+
+const getHomepageArticles = async (req, res) => {
+  try {
+      let { limit = 5 } = req.query;
+      limit = parseInt(limit);
+
+      // 🔹 Fetch All Categories (featured) 
+      const categories = await Category.find().sort({ name: 1 });
+
+      // 🔹 Fetch Featured Articles (Can belong to any category)
+      const featuredArticles = await Article.find({ isFeatured: true })
+          .sort({ date: -1 })
+          .limit(limit);
+
+      // Extract IDs of featured articles to avoid repetition
+      const featuredArticleIds = featuredArticles.map(article => article._id.toString());
+
+      // 🔹 Fetch Articles for Each Category (excluding featured articles)
+      const categoryArticles = {};
+
+      for (const category of categories) {
+          const articles = await Article.find({ 
+              categoryUrl: category.url, 
+              _id: { $nin: featuredArticleIds } // Exclude featured articles
+          })
+          .sort({ date: -1 })
+          .limit(limit);
+
+          if (articles.length > 0) {
+              categoryArticles[category.name] = articles;
+          }
+      }
+
+      // 🔹 Add Featured Articles to the Response
+      categoryArticles["featuredArticles"] = featuredArticles;
+
+      res.status(200).json(categoryArticles);
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -239,6 +282,7 @@ const getAllTags = async (req, res) => {
 module.exports = {
   uploadArticle,
   getAllArticles,
+  getHomepageArticles,
   getArticleById,
   updateArticle,
   deleteArticle,
