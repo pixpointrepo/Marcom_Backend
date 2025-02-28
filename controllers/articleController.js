@@ -17,7 +17,7 @@ const uploadArticle = async (req, res) => {
       category,
       tags,
       mainArticleUrl,
-      isFeatured
+      isFeatured,
     } = req.body;
 
     if (!req.file) {
@@ -33,10 +33,10 @@ const uploadArticle = async (req, res) => {
       author,
       thumbnail: `/uploads/${req.file.filename}`, // Save image path
       category,
-      categoryUrl: generateUrl(category), 
+      categoryUrl: generateUrl(category),
       tags: tags.split(","), // Convert tags to array
       mainArticleUrl,
-      isFeatured
+      isFeatured,
     });
 
     const savedArticle = await newArticle.save();
@@ -58,8 +58,15 @@ const uploadArticle = async (req, res) => {
 
 const getAllArticles = async (req, res) => {
   try {
-    
-    let { page = 1, limit = 10, isFeatured, category, tags, date, search } = req.query;
+    let {
+      page = 1,
+      limit = 10,
+      isFeatured,
+      category,
+      tags,
+      date,
+      search,
+    } = req.query;
 
     page = parseInt(page);
     limit = parseInt(limit);
@@ -68,35 +75,48 @@ const getAllArticles = async (req, res) => {
 
     // 🔹 Filter by Category
     if (category) {
-        filter.categoryUrl = category.toLowerCase().split(" ").join("-");
+      filter.categoryUrl = category.toLowerCase().split(" ").join("-");
     }
 
-    // 🔹 Filter by Tags (comma-separated)
+    // 🔹 Filter by Tags (comma-separated) - case-insensitive filter
+
     if (tags) {
-        const tagsArray = tags.split(",").map(tag => tag.trim());
-        filter.tags = { $all: tagsArray };
+      const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase());
+      filter.tags = {
+        $all: tagsArray.map((tag) => new RegExp(`^${tag}$`, "i")), // Use case-insensitive regex
+      };
     }
 
-     // 🔹 Filter by Date (Exact Match or Range)
-     if (date) {
+    // 🔹 Filter by Date (Exact Match or Range)
+    if (date) {
       const startDate = new Date(date + "T00:00:00.000Z"); // Start of the day in UTC
       const endDate = new Date(date + "T23:59:59.999Z");
       filter.date = { $gte: startDate, $lte: endDate };
-      }
+    }
 
     // 🔹 Search by Title, Summary, or Description
+
+    // if (search) {
+    //   filter.$or = [
+    //     { title: { $regex: search, $options: "i" } }, // Case-insensitive search
+    //     { summary: { $regex: search, $options: "i" } },
+    //     { description: { $regex: search, $options: "i" } },
+    //   ];
+    // }
+
     if (search) {
+      const escapedSearch = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"); // Escape regex characters
       filter.$or = [
-          { title: { $regex: search, $options: "i" } },  // Case-insensitive search
-          { summary: { $regex: search, $options: "i" } },
-          { description: { $regex: search, $options: "i" } }
+        { title: { $regex: `\\b${escapedSearch}\\b`, $options: "i" } }, // Whole word match
+        { summary: { $regex: `\\b${escapedSearch}\\b`, $options: "i" } },
+        { description: { $regex: `\\b${escapedSearch}\\b`, $options: "i" } },
       ];
     }
 
     // 🔹 Filter by isFeatured (Only Return Featured Articles If True)
     if (isFeatured === "true") {
       filter.isFeatured = true;
-    }else if(isFeatured === "false"){
+    } else if (isFeatured === "false") {
       filter.isFeatured = false;
     }
 
@@ -105,15 +125,15 @@ const getAllArticles = async (req, res) => {
 
     // 🔹 Fetch articles
     const articles = await Article.find(filter)
-        .sort({ date: -1 }) // Newest first
-        .skip((page - 1) * limit)
-        .limit(limit);
+      .sort({ date: -1 }) // Newest first
+      .skip((page - 1) * limit)
+      .limit(limit);
 
     res.status(200).json({
-        totalArticles,
-        totalPages: Math.ceil(totalArticles / limit),
-        currentPage: page,
-        articles
+      totalArticles,
+      totalPages: Math.ceil(totalArticles / limit),
+      currentPage: page,
+      articles,
     });
   } catch (error) {
     console.error(error);
@@ -121,53 +141,50 @@ const getAllArticles = async (req, res) => {
   }
 };
 
-
 const getHomepageArticles = async (req, res) => {
   try {
-      let { limit = 5 } = req.query;
-      limit = parseInt(limit);
+    let { limit = 5 } = req.query;
+    limit = parseInt(limit);
 
-      // 🔹 Fetch All Categories (featured) 
-      const categories = await Category.find().sort({ name: 1 });
+    // 🔹 Fetch All Categories (featured)
+    const categories = await Category.find().sort({ name: 1 });
 
-      // 🔹 Fetch Featured Articles (Can belong to any category)
-      const featuredArticles = await Article.find({ isFeatured: true })
-          .sort({ date: -1 })
-          .limit(limit);
+    // 🔹 Fetch Featured Articles (Can belong to any category)
+    const featuredArticles = await Article.find({ isFeatured: true })
+      .sort({ date: -1 })
+      .limit(limit);
 
-      // Extract IDs of featured articles to avoid repetition
-      const featuredArticleIds = featuredArticles.map(article => article._id.toString());
+    // Extract IDs of featured articles to avoid repetition
+    const featuredArticleIds = featuredArticles.map((article) =>
+      article._id.toString()
+    );
 
-      // 🔹 Fetch Articles for Each Category (excluding featured articles)
-      const categoryArticles = {};
+    // 🔹 Fetch Articles for Each Category (excluding featured articles)
+    const categoryArticles = {};
 
-      // 🔹 Add Featured Articles to the Response
-      categoryArticles["featuredArticles"] = featuredArticles;
+    // 🔹 Add Featured Articles to the Response
+    categoryArticles["featuredArticles"] = featuredArticles;
 
-      // 🔹 Add other articles of featured category to the Response
-      for (const category of categories) {
-          const articles = await Article.find({ 
-              categoryUrl: category.url, 
-              _id: { $nin: featuredArticleIds } // Exclude featured articles
-          })
-          .sort({ date: -1 })
-          .limit(limit);
+    // 🔹 Add other articles of featured category to the Response
+    for (const category of categories) {
+      const articles = await Article.find({
+        categoryUrl: category.url,
+        _id: { $nin: featuredArticleIds }, // Exclude featured articles
+      })
+        .sort({ date: -1 })
+        .limit(limit);
 
-          if (articles.length > 0) {
-              categoryArticles[category.name] = articles;
-          }
+      if (articles.length > 0) {
+        categoryArticles[category.name] = articles;
       }
+    }
 
-  
-
-      res.status(200).json(categoryArticles);
-
+    res.status(200).json(categoryArticles);
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Server Error" });
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
-
 
 const getArticleById = async (req, res) => {
   try {
@@ -207,7 +224,7 @@ const updateArticle = async (req, res) => {
       category,
       tags,
       mainArticleUrl,
-      isFeatured
+      isFeatured,
     } = req.body;
 
     let article = await Article.findById(req.params.id);
@@ -231,11 +248,13 @@ const updateArticle = async (req, res) => {
     // update title and url first
     if (title) {
       article.title = title;
-      const shortId = article._id.toString().slice(-7); 
+      const shortId = article._id.toString().slice(-7);
       article.url = generateUrl(title) + "-" + shortId;
     } else {
-      article.title = article.title ;
-      article.url = article.url || generateUrl(article.title) + "-" + article._id.toString().slice(-7);
+      article.title = article.title;
+      article.url =
+        article.url ||
+        generateUrl(article.title) + "-" + article._id.toString().slice(-7);
     }
 
     article.summary = summary || article.summary;
@@ -244,7 +263,7 @@ const updateArticle = async (req, res) => {
     article.readTime = readTime || article.readTime;
     article.author = author || article.author;
     article.category = category || article.category;
-    article.categoryUrl =  generateUrl(category) || article.categoryUrl;
+    article.categoryUrl = generateUrl(category) || article.categoryUrl;
     article.tags = tags ? tags.split(",") : article.tags;
     article.mainArticleUrl = mainArticleUrl || article.mainArticleUrl;
     article.isFeatured = isFeatured || article.isFeatured;
@@ -280,36 +299,35 @@ const deleteArticle = async (req, res) => {
   }
 };
 
+const getAllCategories = async (req, res) => {
+  try {
+    const categories = await Article.find().select("category categoryUrl");
 
-const getAllCategories =  async (req, res) => {
-   try {
-       const categories = await Article.find().select("category categoryUrl");
+    // Extract unique categories
+    const uniqueCategories = [];
+    const categorySet = new Set();
 
-       // Extract unique categories
-       const uniqueCategories = [];
-       const categorySet = new Set();
+    categories.forEach(({ category, categoryUrl }) => {
+      if (!categorySet.has(category)) {
+        uniqueCategories.push({ category, categoryUrl });
+        categorySet.add(category);
+      }
+    });
 
-       categories.forEach(({ category, categoryUrl }) => {
-           if (!categorySet.has(category)) {
-               uniqueCategories.push({ category, categoryUrl });
-               categorySet.add(category);
-           }
-       });
-
-       res.status(200).json(uniqueCategories);
-   } catch (error) {
-       console.error(error);
-       res.status(500).json({ message: "Server Error" });
-   }
+    res.status(200).json(uniqueCategories);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
 
 const getAllTags = async (req, res) => {
   try {
-      const tags = await Article.distinct("tags");
-      res.status(200).json(tags);
+    const tags = await Article.distinct("tags");
+    res.status(200).json(tags);
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Server Error" });
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -322,5 +340,5 @@ module.exports = {
   updateArticle,
   deleteArticle,
   getAllCategories,
-  getAllTags
+  getAllTags,
 };
