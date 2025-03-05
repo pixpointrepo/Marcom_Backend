@@ -17,9 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static("uploads")); // Serve uploaded images
 
-<<<<<<< HEAD
-=======
-// Routes
+
 
 // Articles
 app.use("/api/articles", articleRoutes);
@@ -33,7 +31,6 @@ app.use("/api/form", formRoutes);
 // Auth
 app.use("/api/auth", authRoutes);
 
->>>>>>> main
 // Connect to Database
 connectDB();
 
