@@ -8,7 +8,7 @@ const articleRoutes = require("./routes/articleRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const formRoutes = require("./routes/formRoutes");
 const authRoutes = require("./routes/authRoutes");
-const analyticsRoutes = require("./routes/analytics"); // Import analytics routes
+const analyticsRoutes = require("./routes/analyticsRoutes"); // Import analytics routes
 
 const app = express();
 
@@ -16,8 +16,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static("uploads")); // Serve uploaded images
-
-
 
 // Articles
 app.use("/api/articles", articleRoutes);
@@ -28,17 +26,15 @@ app.use("/api/categories", categoryRoutes);
 // Routes for submitted form 
 app.use("/api/form", formRoutes);
 
+// Analytics (e.g., /api/analytics/pageview)
+app.use("/api/analytics", analyticsRoutes); 
+
 // Auth
 app.use("/api/auth", authRoutes);
 
+
 // Connect to Database
 connectDB();
-
-// Routes
-app.use("/api/articles", articleRoutes); // Articles
-app.use("/api/categories", categoryRoutes); // Categories
-app.use("/api/auth", authRoutes); // Auth
-app.use("/api/analytics", analyticsRoutes); // Analytics (e.g., /api/analytics/pageview)
 
 // Start Server
 const PORT = process.env.PORT || 5000;
