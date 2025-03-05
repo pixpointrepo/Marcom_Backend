@@ -104,14 +104,24 @@ const getAllArticles = async (req, res) => {
     //   ];
     // }
 
+    // if (search) {
+    //   const escapedSearch = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"); // Escape regex characters
+    //   filter.$or = [
+    //     { title: { $regex: `\\b${escapedSearch}\\b`, $options: "i" } }, // Whole word match
+    //     { summary: { $regex: `\\b${escapedSearch}\\b`, $options: "i" } },
+    //     { description: { $regex: `\\b${escapedSearch}\\b`, $options: "i" } },
+    //   ];
+    // }
+
     if (search) {
       const escapedSearch = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"); // Escape regex characters
       filter.$or = [
-        { title: { $regex: `\\b${escapedSearch}\\b`, $options: "i" } }, // Whole word match
-        { summary: { $regex: `\\b${escapedSearch}\\b`, $options: "i" } },
-        { description: { $regex: `\\b${escapedSearch}\\b`, $options: "i" } },
+        { title: { $regex: escapedSearch, $options: "i" } }, 
+        { summary: { $regex: escapedSearch, $options: "i" } },
+        { description: { $regex: escapedSearch, $options: "i" } },
       ];
     }
+    
 
     // 🔹 Filter by isFeatured (Only Return Featured Articles If True)
     if (isFeatured === "true") {

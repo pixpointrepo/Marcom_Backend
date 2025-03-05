@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const articleRoutes = require("./routes/articleRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const formRoutes = require("./routes/formRoutes");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
@@ -21,6 +22,9 @@ app.use("/api/articles", articleRoutes);
 
 // Categories (for displaying in home page)
 app.use("/api/categories", categoryRoutes);
+
+// Routes for submitted form 
+app.use("/api/form", formRoutes);
 
 // Auth
 app.use("/api/auth", authRoutes);
