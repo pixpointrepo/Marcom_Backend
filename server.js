@@ -6,6 +6,7 @@ require("dotenv").config();
 
 const articleRoutes = require("./routes/articleRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const formRoutes = require("./routes/formRoutes");
 const authRoutes = require("./routes/authRoutes");
 const analyticsRoutes = require("./routes/analytics"); // Import analytics routes
 
@@ -16,6 +17,23 @@ app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static("uploads")); // Serve uploaded images
 
+<<<<<<< HEAD
+=======
+// Routes
+
+// Articles
+app.use("/api/articles", articleRoutes);
+
+// Categories (for displaying in home page)
+app.use("/api/categories", categoryRoutes);
+
+// Routes for submitted form 
+app.use("/api/form", formRoutes);
+
+// Auth
+app.use("/api/auth", authRoutes);
+
+>>>>>>> main
 // Connect to Database
 connectDB();
 
