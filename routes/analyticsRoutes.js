@@ -4,11 +4,12 @@ const router = express.Router();
 
 const {
   recordPageView,
-  getTotalPageViews,
-  getUniqueUsers,
   getViewsPerArticle,
   getViewsOverTime,
   getViewsByCategory,
+  getAnalyticsOverview,
+  getArticleAnalytics,
+  getTrends,
 } = require("../controllers/analyticsController");
 
 /**
@@ -16,19 +17,6 @@ const {
  * @desc Record a page view
  */
 router.post("/pageview", recordPageView);
-
-/**
- * @route GET /api/analytics/total-views
- * @desc Get the total number of page views
- */
-router.get("/total-views", getTotalPageViews);
-
-
-/**
- * @route GET /api/analytics/unique-users
- * @desc Get the number of unique users
- */
-router.get("/unique-users", getUniqueUsers);
 
 
 /**
@@ -39,7 +27,7 @@ router.get("/views-per-article", getViewsPerArticle);
 
 /**
  * @route GET /api/analytics/views-over-time
- * @desc Get the number of views over time
+ * @desc Get the number of total views over time
  */
 router.get("/views-over-time", getViewsOverTime);
 
@@ -49,6 +37,25 @@ router.get("/views-over-time", getViewsOverTime);
  */
 router.get("/views-by-category", getViewsByCategory);
 
+// Get analytics metrics
+
+/**
+ * @route GET /api/analytics/overview
+ * @desc Get an overview of analytics
+ */
+router.get("/overview", getAnalyticsOverview);
+
+/**
+ * @route GET /api/analytics/article-analytics
+ *  @desc Get analytics for a specific article
+ */
+router.get("/article-analytics", getArticleAnalytics);
+
+/**
+ * @route GET /api/analytics/trends
+ * @desc Get analytics trends
+ */
+router.get("/trends", getTrends);
 
 
 module.exports = router;
