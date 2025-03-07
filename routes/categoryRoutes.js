@@ -4,13 +4,15 @@ const { verifyToken, verifyAdmin } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
+// Route For Featured Categories
+
 //  Route to Add a New Category
 router.post("/", verifyAdmin, createCategories);
 
 //  Route to Update a Category
 // router.put("/:categoryId", verifyToken, updateCategory);
 
-//  Route to Get All Categories
+//  Route to Get All Featured Categories
 router.get("/", getCategories);
 
 //  Route to Delete a Category

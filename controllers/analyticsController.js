@@ -127,44 +127,51 @@ const getViewsByCategory = async (req, res) => {
     const { startDate, endDate } = req.query;
     const dateFilter = buildDateFilter(startDate, endDate);
 
-    const viewsByCategory = await PageView.aggregate([
+    const viewsByCategory = await Article.aggregate([
+      // Start with the articles collection to include all categories
       {
-        $match: dateFilter ? { timestamp: dateFilter } : {}, // Filter by date range
+        $match: {
+          category: { $exists: true, $ne: null }, // Ensure category exists and is not null
+        },
       },
+      // Lookup page views for each article within the date range
       {
         $lookup: {
-          from: 'articles',
-          localField: 'articleId',
-          foreignField: '_id',
-          as: 'articleDetails',
+          from: 'pageviews', // Adjust collection name to match your MongoDB collection (e.g., 'pageviews')
+          let: { articleId: '$_id' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$articleId', '$$articleId'] },
+                ...(dateFilter ? { timestamp: dateFilter } : {}), // Apply date filter if provided
+              },
+            },
+          ],
+          as: 'pageViews',
         },
       },
-      {
-        $unwind: {
-          path: '$articleDetails',
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-      {
-        $match: { 'articleDetails.category': { $exists: true, $ne: null } },
-      },
+      // Group by category and count views (pageViews array length)
       {
         $group: {
-          _id: '$articleDetails.category',
-          count: { $sum: 1 },
+          _id: '$category',
+          views: { $sum: { $size: { $ifNull: ['$pageViews', []] } } }, // Count views, default to 0 if no views
         },
       },
+      // Project to rename _id to category
       {
-        $sort: { count: -1 },
+        $project: {
+          category: '$_id',
+          views: 1,
+          _id: 0,
+        },
+      },
+      // Sort by views (descending) and category (ascending) for consistency
+      {
+        $sort: { views: -1, category: 1 },
       },
     ]);
 
-    res.status(200).json(
-      viewsByCategory.map(item => ({
-        category: item._id,
-        views: item.count,
-      }))
-    );
+    res.status(200).json(viewsByCategory);
   } catch (error) {
     console.error('Error fetching views by category:', error);
     res.status(500).json({

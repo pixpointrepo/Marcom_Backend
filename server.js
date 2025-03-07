@@ -20,7 +20,7 @@ app.use("/uploads", express.static("uploads")); // Serve uploaded images
 // Articles
 app.use("/api/articles", articleRoutes);
 
-// Categories (for displaying in home page)
+// Featured Categories (for displaying in home page)
 app.use("/api/categories", categoryRoutes);
 
 // Routes for submitted form 
