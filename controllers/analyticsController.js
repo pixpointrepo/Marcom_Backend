@@ -90,10 +90,15 @@ const getViewsPerArticle = async (req, res) => {
   }
 };
 
-// Get Views Over Time (Daily)
 const getViewsOverTime = async (req, res) => {
   try {
+    const { startDate, endDate } = req.query;
+    const dateFilter = buildDateFilter(startDate, endDate);
+
     const viewsOverTime = await PageView.aggregate([
+      {
+        $match: dateFilter ? { timestamp: dateFilter } : {}, // Apply date filter if provided
+      },
       {
         $group: {
           _id: { $dateToString: { format: "%Y-%m-%d", date: "$timestamp" } },
@@ -102,11 +107,10 @@ const getViewsOverTime = async (req, res) => {
       },
       { $sort: { _id: 1 } }, // Sort by date ascending
     ]);
-    res
-      .status(200)
-      .json(
-        viewsOverTime.map((item) => ({ date: item._id, views: item.count }))
-      );
+
+    res.status(200).json(
+      viewsOverTime.map((item) => ({ date: item._id, views: item.count }))
+    );
   } catch (error) {
     console.error("Error fetching views over time:", error);
     res.status(500).json({
@@ -115,6 +119,7 @@ const getViewsOverTime = async (req, res) => {
     });
   }
 };
+
 
 // Get Views By Category
 const getViewsByCategory = async (req, res) => {
