@@ -7,27 +7,30 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install SSH Key
+      - name: Install Dependencies & Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Test SSH Connection
+      - name: Zip and Upload Build
         run: |
-          ssh -v -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "echo SSH works"
+          zip -r dist.zip dist
+          scp -P ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa dist.zip ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.REMOTE_DIR }}
 
-      - name: Deploy Files to Server (Raw Copy)
-        run: |
-          scp -P ${{ secrets.SSH_PORT }} -o IdentitiesOnly=yes -i ~/.ssh/id_rsa -r ./* ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.REMOTE_DIR }}
-
-      - name: Verify Deployment
+      - name: Unzip and Deploy
         run: |
           ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << EOF
-            ls -la ${{ secrets.REMOTE_DIR }}
-            echo "Deployment completed successfully"
+            unzip -o ${REMOTE_DIR}/dist.zip -d ${REMOTE_DIR}
+            rm ${REMOTE_DIR}/dist.zip
+            echo "✅ Deployment completed"
           EOF
